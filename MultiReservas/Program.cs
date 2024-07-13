@@ -1,19 +1,34 @@
+using Microsoft.EntityFrameworkCore;
+using MultiReservas.Data;
+using MultiReservas.Data.Context;
+using MultiReservas.Data.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//Migrations precisa de um ativo
+builder.Services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+
+var banco = builder.Configuration.GetRequiredSection("Banco");
+switch (banco.Value)
+{
+    case "SqlServer":
+        builder.Services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+        builder.Services.AddScoped<IReservaRepository, ReservaRepository<SqlServerContext>>();
+        builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository<SqlServerContext>>();
+        break;
+    default:
+        throw new Exception("Banco inválido");
+}
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
