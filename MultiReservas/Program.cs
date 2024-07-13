@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using MultiReservas.Data;
 using MultiReservas.Data.Context;
 using MultiReservas.Data.Interfaces;
+using MultiReservas.Extensions;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +22,21 @@ switch (banco.Value)
         throw new Exception("Banco inválido");
 }
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(1);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<Sessao>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+app.UseSession();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -34,6 +48,14 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+var ptBR = new CultureInfo("pt-BR");
+app.UseRequestLocalization(options: new()
+{
+    DefaultRequestCulture = new(ptBR),
+    SupportedCultures = [ptBR],
+    SupportedUICultures = [ptBR]
+});
 
 app.MapControllerRoute(
     name: "default",
