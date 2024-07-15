@@ -1,6 +1,6 @@
-﻿@model ICollection<ReservaItem>
+﻿@model Reserva
 
-@if (Model is not null)
+@if (Model?.ReservaItens is not null)
 {
     decimal total = 0;
 
@@ -9,6 +9,10 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        @if (Model.Status == ReservaStatus.Aberta)
+                        {
+                            <th scope="col"></th>
+                        }
                         <th scope="col">Item</th>
                         <th scope="col">Preço</th>
                         <th scope="col">Qtd</th>
@@ -16,13 +20,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.ReservaItens)
                     {
                         var totalItem = item.Quantidade * item.Item?.Preco ?? 0;
                         total += totalItem;
 
                         <tr>
-                            <th scope="row">@item.Item?.Nome</th>
+                            @if (Model.Status == ReservaStatus.Aberta)
+                            {
+                                <td>
+                                    <input hidden readonly class="reservaitemid" value="@item.Id" />
+                                    <a class="btn btn-danger remover"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            }
+                            <td>@item.Item?.Nome</td>
                             <td>@item.Item?.Preco.ToString("C")</td>
                             <td>@item.Quantidade</td>
                             <td class="text-end">@totalItem.ToString("C")</td>
@@ -35,4 +46,8 @@
         <span class="h4 text-end">Total: @total.ToString("C")</span>
 
     </div>
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/js/shared/_reservaitempartial.js"></script>
+
 }

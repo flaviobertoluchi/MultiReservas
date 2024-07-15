@@ -67,7 +67,7 @@ namespace MultiReservas.Controllers
         }
 
         [HttpPost("detalhes/{id}")]
-        public async Task<IActionResult> Detalhes(int id, Reserva model)
+        public async Task<IActionResult> Detalhes(int id, Reserva model, ReservaStatus reservaStatus = ReservaStatus.Aberta)
         {
             ViewBag.Itens = (await itemRepository.ObterTodos()).Select(x => new SelectListItem
             {
@@ -75,17 +75,22 @@ namespace MultiReservas.Controllers
                 Text = x.Nome
             }).ToList();
 
+            //TODO - verificar permissão do usuario para reservaStatus
             if (!ModelState.IsValid || id != model.Id) return View(model);
 
             var reserva = await repository.Obter(id);
-            if (reserva is null) return View(model);
+            if (reserva is null || reserva.Status != ReservaStatus.Aberta) return View(model);
 
             reserva.Local = model.Local;
             reserva.Nome = model.Nome;
-            reserva.Status = model.Status;
+            reserva.Status = reservaStatus;
             reserva.DataInicio = model.DataInicio;
-            reserva.DataFim = model.DataFim;
             reserva.ReservaItens = model.ReservaItens;
+
+            if (reservaStatus == ReservaStatus.Finalizada || reservaStatus == ReservaStatus.Cancelada)
+            {
+                reserva.DataFim = DateTime.Now;
+            }
 
             await repository.Atualizar(reserva);
 
@@ -111,7 +116,22 @@ namespace MultiReservas.Controllers
 
             await repository.Atualizar(reserva);
 
-            return PartialView("_ReservaItemPartial", (await repository.Obter(reserva.Id))?.ReservaItens);
+            return PartialView("_ReservaItemPartial", await repository.Obter(reserva.Id));
+        }
+        [HttpDelete("reservaitem/{id}")]
+        public async Task<IActionResult> ReservaItemPartial(int id, int reservaItemId)
+        {
+            if (id <= 0 || reservaItemId <= 0) return PartialView("_ReservaItemPartial");
+
+            var reserva = await repository.Obter(id, true);
+            var reservaItem = reserva?.ReservaItens.FirstOrDefault(x => x.Id == reservaItemId);
+            if (reserva is null || reservaItem is null) return PartialView("_ReservaItemPartial");
+
+            reserva.ReservaItens.Remove(reservaItem);
+
+            await repository.Atualizar(reserva);
+
+            return PartialView("_ReservaItemPartial", await repository.Obter(reserva.Id));
         }
     }
 }
