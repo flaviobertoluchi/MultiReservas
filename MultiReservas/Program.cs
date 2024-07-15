@@ -17,6 +17,7 @@ switch (banco.Value)
         builder.Services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
         builder.Services.AddScoped<IReservaRepository, ReservaRepository<SqlServerContext>>();
         builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository<SqlServerContext>>();
+        builder.Services.AddScoped<IItemRepository, ItemRepository<SqlServerContext>>();
         break;
     default:
         throw new Exception("Banco inválido");

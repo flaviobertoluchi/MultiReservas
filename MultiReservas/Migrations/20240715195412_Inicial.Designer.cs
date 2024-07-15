@@ -12,7 +12,7 @@ using MultiReservas.Data.Context;
 namespace MultiReservas.Migrations
 {
     [DbContext(typeof(SqlServerContext))]
-    [Migration("20240713143618_Inicial")]
+    [Migration("20240715195412_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -99,7 +99,7 @@ namespace MultiReservas.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ReservaId")
+                    b.Property<int>("ReservaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -165,11 +165,15 @@ namespace MultiReservas.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MultiReservas.Models.Reserva", null)
+                    b.HasOne("MultiReservas.Models.Reserva", "Reserva")
                         .WithMany("ReservaItens")
-                        .HasForeignKey("ReservaId");
+                        .HasForeignKey("ReservaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Item");
+
+                    b.Navigation("Reserva");
                 });
 
             modelBuilder.Entity("MultiReservas.Models.Reserva", b =>

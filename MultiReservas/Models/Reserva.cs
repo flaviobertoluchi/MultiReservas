@@ -14,7 +14,7 @@ namespace MultiReservas.Models
         public string Nome { get; set; } = string.Empty;
         public ReservaStatus Status { get; set; }
 
-        [DisplayName("Data Início")]
+        [DisplayName("Data")]
         public DateTime DataInicio { get; set; }
 
         [DisplayName("Data Fim")]

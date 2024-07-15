@@ -1,18 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
+using MultiReservas.Data.Interfaces;
 using MultiReservas.Extensions;
 using MultiReservas.Models;
+using MultiReservas.Models.Tipos;
 using System.Diagnostics;
 
 namespace MultiReservas.Controllers
 {
     [UsuarioAutorizacao]
-    public class HomeController : Controller
+    public class HomeController(IReservaRepository reservaRepository) : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        private readonly IReservaRepository reservaRepository = reservaRepository;
 
+        public async Task<IActionResult> Index()
+        {
+            return View(await reservaRepository.ObterTodos(ReservaStatus.Aberta));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

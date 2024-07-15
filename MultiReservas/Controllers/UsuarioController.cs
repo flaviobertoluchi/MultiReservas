@@ -5,6 +5,7 @@ using System.Text.Json;
 
 namespace MultiReservas.Controllers
 {
+    [Route("login")]
     public class UsuarioController(IUsuarioRepository repository, Sessao sessao) : Controller
     {
         private readonly IUsuarioRepository repository = repository;
@@ -36,6 +37,7 @@ namespace MultiReservas.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
+        [Route("sair")]
         public IActionResult Sair()
         {
             sessao.Excluir(usuario);

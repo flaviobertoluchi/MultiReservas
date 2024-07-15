@@ -71,9 +71,9 @@ namespace MultiReservas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ReservaId = table.Column<int>(type: "int", nullable: false),
                     ItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantidade = table.Column<int>(type: "int", nullable: false),
-                    ReservaId = table.Column<int>(type: "int", nullable: true)
+                    Quantidade = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,7 +88,8 @@ namespace MultiReservas.Migrations
                         name: "FK_ReservaItens_Reservas_ReservaId",
                         column: x => x.ReservaId,
                         principalTable: "Reservas",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(

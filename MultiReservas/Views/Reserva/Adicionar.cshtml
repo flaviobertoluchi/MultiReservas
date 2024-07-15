@@ -1,0 +1,46 @@
+﻿@model Reserva
+
+@{
+    ViewData["Title"] = "Reserva";
+}
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-6">
+
+            <form method="post">
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Local"></label>
+                    <input class="form-control" asp-for="Local" min="1" max="20" /> @* TODO - buscar valor máximo no sistema *@
+                    <span asp-validation-for="Local" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Nome"></label>
+                    <input class="form-control" asp-for="Nome">
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="DataInicio"></label>
+                    <input class="form-control" asp-for="DataInicio">
+                    <span asp-validation-for="DataInicio" class="text-danger"></span>
+                </div>
+
+                <button class="btn btn-success" asp-area="" asp-controller="Reserva" asp-action="Adicionar">
+                    <i class="fa-solid fa-floppy-disk"></i> Reservar
+                </button>
+
+                <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-calendar-days"></i> Voltar
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

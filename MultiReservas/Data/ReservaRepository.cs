@@ -10,7 +10,7 @@ namespace MultiReservas.Data
     {
         private readonly T context = context;
 
-        public async Task<ICollection<Reserva>> ObterTodos(ReservaStatus? status, int? local)
+        public async Task<ICollection<Reserva>> ObterTodos(ReservaStatus? status = null, int? local = null)
         {
             var query = context.Reservas.AsNoTracking().AsQueryable();
 
@@ -20,9 +20,13 @@ namespace MultiReservas.Data
             return await query.ToListAsync();
         }
 
-        public async Task<Reserva?> Obter(int id)
+        public async Task<Reserva?> Obter(int id, bool comTrack = false)
         {
-            return await context.Reservas.AsNoTracking().Include(x => x.Usuario).Include(x => x.ReservaItens).ThenInclude(x => x.Item).FirstOrDefaultAsync(x => x.Id == id);
+            var query = context.Reservas.AsQueryable();
+
+            if (!comTrack) query = query.AsNoTracking();
+
+            return await query.Include(x => x.Usuario).Include(x => x.ReservaItens).ThenInclude(x => x.Item).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task Adicionar(Reserva reserva)

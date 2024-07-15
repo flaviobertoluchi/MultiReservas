@@ -96,7 +96,7 @@ namespace MultiReservas.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ReservaId")
+                    b.Property<int>("ReservaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -162,11 +162,15 @@ namespace MultiReservas.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MultiReservas.Models.Reserva", null)
+                    b.HasOne("MultiReservas.Models.Reserva", "Reserva")
                         .WithMany("ReservaItens")
-                        .HasForeignKey("ReservaId");
+                        .HasForeignKey("ReservaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Item");
+
+                    b.Navigation("Reserva");
                 });
 
             modelBuilder.Entity("MultiReservas.Models.Reserva", b =>

@@ -1,0 +1,36 @@
+﻿@model ICollection<Reserva>
+
+@{
+    ViewData["Title"] = "Reservas Local";
+}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <h1>Reservas abertas no local: @ViewBag.Local</h1>
+            <div class="row-cols-1">
+                @if (Model is not null)
+                {
+                    foreach (var item in Model.OrderBy(x => x.DataInicio))
+                    {
+                        <div class="col">
+                            <a class="btn btn-success m-1 w-100" asp-area="" asp-controller="Reserva" asp-action="Detalhes" asp-route-id="@item.Id">
+                                <span class="h2">@item.Nome</span>
+                                <p class="h4 mt-2">@item.DataInicio.ToString("dddd, dd/MM/yyyy")</p>
+                                <p class="h4">@item.DataInicio.ToString("HH:mm")</p>
+                            </a>
+                        </div>
+                    }
+                }
+
+                <div class="col">
+                    <a class="btn btn-primary m-1 w-100" asp-area="" asp-controller="Reserva" asp-action="Adicionar" asp-route-local="@ViewBag.Local">
+                        <span class="h2"><i class="fa-solid fa-plus"></i></span>
+                        <p class="h4">Nova</p>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
