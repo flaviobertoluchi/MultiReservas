@@ -1,0 +1,141 @@
+﻿@inject Sessao sessao
+
+@model Usuario
+
+@{
+    ViewData["Title"] = "Usuário";
+    var usuario = sessao.ObterUsuario();
+}
+
+@if (Model is not null && usuario is not null && usuario.Usuarios)
+{
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+
+            @if (ViewBag.Mensagem is not null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Mensagem
+                </div>
+            }
+            else
+            {
+                <div class="col-6">
+
+                    <form method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Id"></label>
+                            <input readonly class="form-control" asp-for="Id">
+                            <span asp-validation-for="Id" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Login"></label>
+                            <input class="form-control" asp-for="Login">
+                            <span asp-validation-for="Login" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Senha"></label>
+                            <input class="form-control" type="password" asp-for="Senha">
+                            <span asp-validation-for="Senha" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" asp-for="Ativo">
+                            <label class="form-check-label" asp-for="Ativo"></label>
+                        </div>
+
+                        <h2>Permissões</h2>
+
+                        <h4>Administração</h4>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="Reservas">
+                                <label class="form-check-label" asp-for="Reservas"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="Itens">
+                                <label class="form-check-label" asp-for="Itens"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="Usuarios">
+                                <label class="form-check-label" asp-for="Usuarios"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="Configuracao">
+                                <label class="form-check-label" asp-for="Configuracao"></label>
+                            </div>
+                        </div>
+
+                        <h4>Operação</h4>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="PaginaInicial">
+                                <label class="form-check-label" asp-for="PaginaInicial"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="AdicionarReservas">
+                                <label class="form-check-label" asp-for="AdicionarReservas"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="EditarReservas">
+                                <label class="form-check-label" asp-for="EditarReservas"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="FinalizarReservas">
+                                <label class="form-check-label" asp-for="FinalizarReservas"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="CancelarReservas">
+                                <label class="form-check-label" asp-for="CancelarReservas"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="AdicionarItensReserva">
+                                <label class="form-check-label" asp-for="AdicionarItensReserva"></label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input permissao" type="checkbox" asp-for="RemoverItensReserva">
+                                <label class="form-check-label" asp-for="RemoverItensReserva"></label>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" asp-area="" asp-controller="Usuario" asp-action="Detalhes">
+                            <i class="fa-solid fa-floppy-disk"></i> Salvar
+                        </button>
+
+                        <a class="btn btn-secondary" asp-area="" asp-controller="Usuario" asp-action="Index">
+                            <i class="fa-solid fa-circle-left"></i> Voltar
+                        </a>
+
+                    </form>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    @section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -8,20 +8,22 @@ namespace MultiReservas.Controllers
 {
     [UsuarioAutorizacao]
     [Route("configuracao")]
-    public class ConfiguracaoController(IConfiguracaoRepository repository, IReservaRepository reservaRepository) : Controller
+    public class ConfiguracaoController(IConfiguracaoRepository repository, IReservaRepository reservaRepository, Sessao sessao) : Controller
     {
         private readonly IConfiguracaoRepository repository = repository;
         private readonly IReservaRepository reservaRepository = reservaRepository;
+        private readonly Usuario usuario = sessao.ObterUsuario() ?? new();
 
         public async Task<IActionResult> Index()
         {
+            if (!usuario.Configuracao) return View();
             return View(await repository.Obter());
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(Configuracao model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid || !usuario.Configuracao) return View(model);
 
             var reservas = await reservaRepository.ObterTodos(ReservaStatus.Aberta);
 

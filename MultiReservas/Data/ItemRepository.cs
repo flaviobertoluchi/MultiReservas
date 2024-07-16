@@ -57,8 +57,9 @@ namespace MultiReservas.Data
 
         public async Task<ICollection<Item>> ObterTodos()
         {
-            return await context.Itens.AsNoTracking().ToListAsync();
+            return await context.Itens.AsNoTracking().Where(x => x.Ativo).ToListAsync();
         }
+
         public async Task<Item?> Obter(int id)
         {
             return await context.Itens.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);

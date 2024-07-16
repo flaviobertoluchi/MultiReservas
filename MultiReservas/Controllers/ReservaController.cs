@@ -15,22 +15,25 @@ namespace MultiReservas.Controllers
         private readonly IReservaRepository repository = repository;
         private readonly IItemRepository itemRepository = itemRepository;
         private readonly IConfiguracaoRepository configuracaoRepository = configuracaoRepository;
-        private readonly Sessao sessao = sessao;
+        private readonly Usuario usuario = sessao.ObterUsuario() ?? new();
 
         public async Task<IActionResult> Index()
         {
+            if (!usuario.Reservas) return View();
             return View(await repository.ObterPaginado(1, 10, ReservaOrdem.Id, false, "", "", null, null));
         }
 
         [Route("paginacao")]
         public async Task<IActionResult> ReservaPaginacao(int pagina = 1, int qtdPorPagina = 10, ReservaOrdem ordem = ReservaOrdem.Id, bool desc = false, string pesquisa = "", string pesquisaNome = "", DateTime? dataInicial = null, DateTime? datafinal = null)
         {
+            if (!usuario.Reservas) return PartialView("_ReservaPaginacaoPartial");
             return PartialView("_ReservaPaginacaoPartial", await repository.ObterPaginado(pagina, qtdPorPagina, ordem, desc, pesquisa, pesquisaNome, dataInicial, datafinal));
         }
 
         [Route("local/{local}")]
         public async Task<IActionResult> Local(int local)
         {
+            if (!(usuario.Reservas || usuario.PaginaInicial)) return View();
             ViewBag.Local = local;
             var reservas = await repository.ObterTodos(ReservaStatus.Aberta, local);
 
@@ -43,6 +46,7 @@ namespace MultiReservas.Controllers
         [Route("adicionar")]
         public async Task<IActionResult> Adicionar(int local)
         {
+            if (!(usuario.Reservas || usuario.AdicionarReservas)) return View();
             var configuracao = await configuracaoRepository.Obter();
             ViewBag.QuantidadeLocais = configuracao?.QuantidadeLocais;
 
@@ -60,6 +64,7 @@ namespace MultiReservas.Controllers
         [HttpPost("adicionar")]
         public async Task<IActionResult> Adicionar(Reserva model)
         {
+            if (!(usuario.Reservas || usuario.AdicionarReservas)) return View();
             var configuracao = await configuracaoRepository.Obter();
             ViewBag.QuantidadeLocais = configuracao?.QuantidadeLocais;
 
@@ -79,9 +84,6 @@ namespace MultiReservas.Controllers
 
             if (!ModelState.IsValid) return View(model);
 
-            var usuario = sessao.ObterUsuario();
-            if (usuario is null) return View(model);
-
             model.UsuarioId = usuario.Id;
             model.Status = ReservaStatus.Aberta;
             await repository.Adicionar(model);
@@ -92,6 +94,7 @@ namespace MultiReservas.Controllers
         [Route("detalhes/{id}")]
         public async Task<IActionResult> Detalhes(int id)
         {
+            if (!(usuario.Reservas || usuario.EditarReservas)) return View();
             ViewBag.Itens = (await itemRepository.ObterTodos()).Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),
@@ -106,6 +109,7 @@ namespace MultiReservas.Controllers
         [HttpPost("detalhes/{id}")]
         public async Task<IActionResult> Detalhes(int id, Reserva model, ReservaStatus reservaStatus = ReservaStatus.Aberta)
         {
+            if (!(usuario.Reservas || usuario.EditarReservas)) return View();
             ViewBag.Itens = (await itemRepository.ObterTodos()).Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),
@@ -121,8 +125,10 @@ namespace MultiReservas.Controllers
                 return View(model);
             }
 
-            //TODO - verificar permissão do usuario para reservaStatus
-            if (!ModelState.IsValid || id != model.Id) return View(model);
+            if (!ModelState.IsValid
+                || id != model.Id
+                || (reservaStatus == ReservaStatus.Finalizada && !(usuario.Reservas || usuario.FinalizarReservas))
+                || (reservaStatus == ReservaStatus.Cancelada && !(usuario.Reservas || usuario.CancelarReservas))) return View(model);
 
             var reserva = await repository.Obter(id);
             if (reserva is null || reserva.Status != ReservaStatus.Aberta) return View(model);
@@ -156,6 +162,7 @@ namespace MultiReservas.Controllers
         [HttpPost("reservaitem")]
         public async Task<IActionResult> ReservaItemPartial(ReservaItem reservaItem)
         {
+            if (!(usuario.Reservas || usuario.AdicionarItensReserva)) return PartialView("_ReservaItemPartial");
             if (!ModelState.IsValid
                 || reservaItem.ReservaId <= 0
                 || reservaItem.ItemId <= 0
@@ -177,6 +184,7 @@ namespace MultiReservas.Controllers
         [HttpDelete("reservaitem/{id}")]
         public async Task<IActionResult> ReservaItemPartial(int id, int reservaItemId)
         {
+            if (!(usuario.Reservas || usuario.RemoverItensReserva)) return PartialView("_ReservaItemPartial");
             if (id <= 0 || reservaItemId <= 0) return PartialView("_ReservaItemPartial");
 
             var reserva = await repository.Obter(id, true);

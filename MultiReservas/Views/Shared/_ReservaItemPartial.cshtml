@@ -1,6 +1,12 @@
-﻿@model Reserva
+﻿@inject Sessao sessao
 
-@if (Model?.ReservaItens is not null)
+@model Reserva
+
+@{
+    var usuario = sessao.ObterUsuario();
+}
+
+@if (Model?.ReservaItens is not null && usuario is not null && (usuario.Reservas || usuario.PaginaInicial))
 {
     decimal total = 0;
 
@@ -9,7 +15,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        @if (Model.Status == ReservaStatus.Aberta)
+                        @if (Model.Status == ReservaStatus.Aberta && (usuario.Reservas || usuario.RemoverItensReserva))
                         {
                             <th scope="col"></th>
                         }
@@ -26,7 +32,7 @@
                         total += totalItem;
 
                         <tr>
-                            @if (Model.Status == ReservaStatus.Aberta)
+                            @if (Model.Status == ReservaStatus.Aberta && (usuario.Reservas || usuario.RemoverItensReserva))
                             {
                                 <td>
                                     <input hidden readonly class="reservaitemid" value="@item.Id" />

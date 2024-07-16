@@ -49,7 +49,18 @@ namespace MultiReservas.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Login = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false)
+                    Ativo = table.Column<bool>(type: "bit", nullable: false),
+                    PaginaInicial = table.Column<bool>(type: "bit", nullable: false),
+                    Reservas = table.Column<bool>(type: "bit", nullable: false),
+                    Itens = table.Column<bool>(type: "bit", nullable: false),
+                    Usuarios = table.Column<bool>(type: "bit", nullable: false),
+                    Configuracao = table.Column<bool>(type: "bit", nullable: false),
+                    AdicionarReservas = table.Column<bool>(type: "bit", nullable: false),
+                    EditarReservas = table.Column<bool>(type: "bit", nullable: false),
+                    FinalizarReservas = table.Column<bool>(type: "bit", nullable: false),
+                    CancelarReservas = table.Column<bool>(type: "bit", nullable: false),
+                    AdicionarItensReserva = table.Column<bool>(type: "bit", nullable: false),
+                    RemoverItensReserva = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,8 +126,8 @@ namespace MultiReservas.Migrations
 
             migrationBuilder.InsertData(
                 table: "Usuarios",
-                columns: new[] { "Id", "Ativo", "Login", "Senha" },
-                values: new object[] { 1, true, "admin", "7a8b097ac97ab751667457209d1f714d7473283c000dee9e3cd2c59fa6977b40" });
+                columns: new[] { "Id", "AdicionarItensReserva", "AdicionarReservas", "Ativo", "CancelarReservas", "Configuracao", "EditarReservas", "FinalizarReservas", "Itens", "Login", "PaginaInicial", "RemoverItensReserva", "Reservas", "Senha", "Usuarios" },
+                values: new object[] { 1, true, true, true, true, true, true, true, true, "admin", true, true, true, "7a8b097ac97ab751667457209d1f714d7473283c000dee9e3cd2c59fa6977b40", true });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ReservaItens_ItemId",

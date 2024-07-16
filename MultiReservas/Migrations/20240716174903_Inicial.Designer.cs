@@ -12,7 +12,7 @@ using MultiReservas.Data.Context;
 namespace MultiReservas.Migrations
 {
     [DbContext(typeof(SqlServerContext))]
-    [Migration("20240716115514_Inicial")]
+    [Migration("20240716174903_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -153,7 +153,28 @@ namespace MultiReservas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("AdicionarItensReserva")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("AdicionarReservas")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CancelarReservas")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Configuracao")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EditarReservas")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("FinalizarReservas")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Itens")
                         .HasColumnType("bit");
 
                     b.Property<string>("Login")
@@ -161,10 +182,22 @@ namespace MultiReservas.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<bool>("PaginaInicial")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("RemoverItensReserva")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Reservas")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
+
+                    b.Property<bool>("Usuarios")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -174,9 +207,20 @@ namespace MultiReservas.Migrations
                         new
                         {
                             Id = 1,
+                            AdicionarItensReserva = true,
+                            AdicionarReservas = true,
                             Ativo = true,
+                            CancelarReservas = true,
+                            Configuracao = true,
+                            EditarReservas = true,
+                            FinalizarReservas = true,
+                            Itens = true,
                             Login = "admin",
-                            Senha = "7a8b097ac97ab751667457209d1f714d7473283c000dee9e3cd2c59fa6977b40"
+                            PaginaInicial = true,
+                            RemoverItensReserva = true,
+                            Reservas = true,
+                            Senha = "7a8b097ac97ab751667457209d1f714d7473283c000dee9e3cd2c59fa6977b40",
+                            Usuarios = true
                         });
                 });
 

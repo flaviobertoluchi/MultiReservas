@@ -1,36 +1,24 @@
-﻿@model ICollection<Reserva>
+﻿@inject Sessao sessao
+
+@model ICollection<Reserva>
 
 @{
-    ViewData["Title"] = "Home Page";
-    int quantidadeLocais = ViewBag.QuantidadeLocais ?? 0;
+    ViewData["Title"] = "Página Inicial";
+    var usuario = sessao.ObterUsuario();
 }
 
-<div class="container mt-3">
-    <div class="row">
-        <div class="col text-center">
-
-            @if (ViewBag.NomeLocais is not null)
-            {
-                <h1>@ViewBag.NomeLocais</h1>
-            }
-
-            @for (int i = 1; i <= quantidadeLocais; i++)
-            {
-                var reserva = Model?.OrderBy(x => x.DataInicio).FirstOrDefault(x => x.Local == i);
-                if (reserva is not null)
-                {
-                    <a class="btn btn-danger m-1" style="width: 110px; height: 110px;" asp-area="" asp-controller="Reserva" asp-action="Local" asp-route-local="@i">
-                        <span class="h1">@i</span>
-                        <p class="h5">@reserva.DataInicio.ToString("dd/MM")</p>
-                    </a>
-                }
-                else
-                {
-                    <a class="btn btn-success m-1" style="width: 110px; height: 110px;" asp-area="" asp-controller="Reserva" asp-action="Local" asp-route-local="@i">
-                        <span class="h1">@i</span>
-                    </a>
-                }
-            }
+@if (usuario is not null && (usuario.Reservas || usuario.PaginaInicial))
+{
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col text-center indexpartial">
+                <partial name="_IndexPartial" />
+            </div>
         </div>
     </div>
-</div>
+
+    @section Scripts
+    {
+    <script src="~/js/home/index.js"></script>
+    }
+}

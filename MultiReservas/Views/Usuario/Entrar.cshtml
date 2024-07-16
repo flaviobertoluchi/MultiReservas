@@ -1,0 +1,41 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Entrar";
+}
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4">
+
+            @if (ViewBag.Mensagem is not null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Mensagem
+                </div>
+            }
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Login"></label>
+                    <input class="form-control" asp-for="Login">
+                    <span asp-validation-for="Login" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Senha"></label>
+                    <input class="form-control" type="password" asp-for="Senha">
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+                <button class="btn btn-primary" asp-area="" asp-controller="Usuario" asp-action="Entrar" asp-route-returnUrl="@ViewBag.ReturnUrl">
+                    <i class="fa-solid fa-right-to-bracket"></i> Entrar
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

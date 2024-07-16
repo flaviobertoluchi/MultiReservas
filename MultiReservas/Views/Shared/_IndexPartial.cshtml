@@ -1,0 +1,24 @@
+﻿@model ICollection<Reserva>
+
+@if (ViewBag.NomeLocais is not null)
+{
+    <h1>@ViewBag.NomeLocais</h1>
+}
+
+@for (int i = 1; i <= ViewBag.QuantidadeLocais ?? 0; i++)
+{
+    var reserva = Model?.OrderBy(x => x.DataInicio).FirstOrDefault(x => x.Local == i);
+    if (reserva is not null)
+    {
+        <a class="btn btn-danger m-1" style="width: 110px; height: 110px;" asp-area="" asp-controller="Reserva" asp-action="Local" asp-route-local="@i">
+            <span class="h1">@i</span>
+            <p class="h5">@reserva.DataInicio.ToString("dd/MM")</p>
+        </a>
+    }
+    else
+    {
+        <a class="btn btn-success m-1" style="width: 110px; height: 110px;" asp-area="" asp-controller="Reserva" asp-action="Local" asp-route-local="@i">
+            <span class="h1">@i</span>
+        </a>
+    }
+}

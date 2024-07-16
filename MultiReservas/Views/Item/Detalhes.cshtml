@@ -1,10 +1,13 @@
-﻿@model Item
+﻿@inject Sessao sessao
+
+@model Item
 
 @{
     ViewData["Title"] = "Item";
+    var usuario = sessao.ObterUsuario();
 }
 
-@if (Model is not null)
+@if (Model is not null && usuario is not null && usuario.Itens)
 {
     <div class="container mt-3">
         <div class="row justify-content-center">

@@ -1,10 +1,13 @@
-﻿@model Paginacao<Reserva>
+﻿@inject Sessao sessao
+
+@model Paginacao<Reserva>
 
 @{
     ViewData["Title"] = "Reservas";
+    var usuario = sessao.ObterUsuario();
 }
 
-@if (Model is not null)
+@if (Model is not null && usuario is not null && usuario.Reservas)
 {
     <div class="container mt-4">
         <div class="row">

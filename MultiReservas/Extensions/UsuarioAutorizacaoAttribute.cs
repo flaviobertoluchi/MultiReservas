@@ -14,7 +14,7 @@ namespace MultiReservas.Extensions
             var usuario = sessao.ObterUsuario();
             if (usuario is null)
             {
-                context.Result = new RedirectToActionResult(nameof(UsuarioController.Index), "Usuario", new { returnUrl = context.HttpContext.Request.Path });
+                context.Result = new RedirectToActionResult(nameof(UsuarioController.Entrar), "Usuario", new { returnUrl = context.HttpContext.Request.Path });
                 return;
             }
         }

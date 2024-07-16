@@ -1,5 +1,9 @@
 ﻿@inject Sessao sessao
 
+@{
+    var usuario = sessao.ObterUsuario();
+}
+
 <!DOCTYPE html>
 <html lang="pt-br" data-bs-theme="dark">
 <head>
@@ -26,51 +30,66 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                                <i class="fa-solid fa-house-chimney"></i> Página inicial
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Reserva" asp-action="Index">
-                                <i class="fa-solid fa-calendar-days"></i> Reservas
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Item" asp-action="Index">
-                                <i class="fa-solid fa-box"></i> Itens
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Usuario" asp-action="Index">
-                                <i class="fa-solid fa-user"></i> Usuários
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Configuracao" asp-action="Index">
-                                <i class="fa-solid fa-gear"></i> Configuração
-                            </a>
-                        </li>
+                        @if (usuario is not null)
+                        {
+                            if (usuario.PaginaInicial)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                        <i class="fa-solid fa-house-chimney"></i> Página inicial
+                                    </a>
+                                </li>
+                            }
+                            if (usuario.Reservas)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Reserva" asp-action="Index">
+                                        <i class="fa-solid fa-calendar-days"></i> Reservas
+                                    </a>
+                                </li>
+                            }
+                            if (usuario.Itens)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Item" asp-action="Index">
+                                        <i class="fa-solid fa-box"></i> Itens
+                                    </a>
+                                </li>
+                            }
+                            if (usuario.Usuarios)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Usuario" asp-action="Index">
+                                        <i class="fa-solid fa-user"></i> Usuários
+                                    </a>
+                                </li>
+                            }
+                            if (usuario.Configuracao)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Configuracao" asp-action="Index">
+                                        <i class="fa-solid fa-gear"></i> Configuração
+                                    </a>
+                                </li>
+                            }
+                        }
+
                     </ul>
 
-                    @{
-                        var usuario = sessao.ObterUsuario();
-
-                        if (usuario is not null)
-                        {
-                            <div class="dropdown me-lg-2 mb-2 mb-lg-0">
-                                <button class="btn border dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                    <i class="fa-solid fa-user"></i> @usuario.Login
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-lg-end">
-                                    <li>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="Sair">
-                                            <i class="bi bi-box-arrow-left"></i> Sair
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
+                    @if (usuario is not null)
+                    {
+                        <div class="dropdown me-lg-2 mb-2 mb-lg-0">
+                            <button class="btn border dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-user"></i> @usuario.Login
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-lg-end">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="Sair">
+                                        <i class="bi bi-box-arrow-left"></i> Sair
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     }
 
                     <div class="dropdown">
