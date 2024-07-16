@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MultiReservas.Config;
+using System.ComponentModel.DataAnnotations;
 
 namespace MultiReservas.Models
 {
@@ -6,10 +7,12 @@ namespace MultiReservas.Models
     {
         public int Id { get; set; }
 
-        [StringLength(20)]
+        [Required(ErrorMessageResourceType = typeof(Mensagens), ErrorMessageResourceName = nameof(Mensagens.Required))]
+        [MaxLength(20, ErrorMessageResourceType = typeof(Mensagens), ErrorMessageResourceName = nameof(Mensagens.MaxLength))]
         public string Login { get; set; } = string.Empty;
 
-        [StringLength(64)]
+        [Required(ErrorMessageResourceType = typeof(Mensagens), ErrorMessageResourceName = nameof(Mensagens.Required))]
+        [MaxLength(64, ErrorMessageResourceType = typeof(Mensagens), ErrorMessageResourceName = nameof(Mensagens.MaxLength))]
         public string Senha { get; set; } = string.Empty;
         public bool Ativo { get; set; }
     }

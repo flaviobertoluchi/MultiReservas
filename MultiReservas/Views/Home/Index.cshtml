@@ -2,12 +2,19 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    int quantidadeLocais = ViewBag.QuantidadeLocais ?? 0;
 }
 
 <div class="container mt-3">
     <div class="row">
         <div class="col text-center">
-            @for (int i = 1; i <= 20; i++)
+
+            @if (ViewBag.NomeLocais is not null)
+            {
+                <h1>@ViewBag.NomeLocais</h1>
+            }
+
+            @for (int i = 1; i <= quantidadeLocais; i++)
             {
                 var reserva = Model?.OrderBy(x => x.DataInicio).FirstOrDefault(x => x.Local == i);
                 if (reserva is not null)

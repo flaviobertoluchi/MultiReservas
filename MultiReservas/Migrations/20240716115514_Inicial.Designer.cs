@@ -12,7 +12,7 @@ using MultiReservas.Data.Context;
 namespace MultiReservas.Migrations
 {
     [DbContext(typeof(SqlServerContext))]
-    [Migration("20240715195412_Inicial")]
+    [Migration("20240716115514_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -24,6 +24,36 @@ namespace MultiReservas.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("MultiReservas.Models.Configuracao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("NomeLocais")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("QuantidadeLocais")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ReservasPorLocal")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Configuracoes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            QuantidadeLocais = 100
+                        });
+                });
 
             modelBuilder.Entity("MultiReservas.Models.Item", b =>
                 {
@@ -71,6 +101,10 @@ namespace MultiReservas.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Observacao")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

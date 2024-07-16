@@ -12,6 +12,21 @@ namespace MultiReservas.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Configuracoes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomeLocais = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    QuantidadeLocais = table.Column<int>(type: "int", nullable: false),
+                    ReservasPorLocal = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Configuracoes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Itens",
                 columns: table => new
                 {
@@ -52,7 +67,8 @@ namespace MultiReservas.Migrations
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     DataInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DataFim = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DataFim = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Observacao = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,6 +109,11 @@ namespace MultiReservas.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Configuracoes",
+                columns: new[] { "Id", "NomeLocais", "QuantidadeLocais", "ReservasPorLocal" },
+                values: new object[] { 1, null, 100, null });
+
+            migrationBuilder.InsertData(
                 table: "Usuarios",
                 columns: new[] { "Id", "Ativo", "Login", "Senha" },
                 values: new object[] { 1, true, "admin", "7a8b097ac97ab751667457209d1f714d7473283c000dee9e3cd2c59fa6977b40" });
@@ -116,6 +137,9 @@ namespace MultiReservas.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Configuracoes");
+
             migrationBuilder.DropTable(
                 name: "ReservaItens");
 

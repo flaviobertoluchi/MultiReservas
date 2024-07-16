@@ -11,6 +11,13 @@
             <div class="row justify-content-center">
                 <div class="col-6">
 
+                    @if (ViewBag.Mensagem is not null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.Mensagem
+                        </div>
+                    }
+
                     @if (Model.Status == ReservaStatus.Aberta)
                     {
                         <a class="btn btn-primary m-1 float-end" asp-area="" asp-controller="Reserva" asp-action="Adicionar" asp-route-local="@Model.Local">
@@ -28,7 +35,7 @@
 
                     <div class="my-3">
                         <label class="form-label" asp-for="Local"></label>
-                        <input class="form-control" asp-for="Local" min="1" max="20"> @* TODO - buscar valor máximo no sistema *@
+                        <input class="form-control" asp-for="Local" min="1" max="@ViewBag.QuantidadeLocais" />
                         <span asp-validation-for="Local" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
@@ -69,10 +76,16 @@
                         </div>
                     }
 
-                    <div class="row mb-3">
+                    <div class="row">
                         <div class="reservaitempartial">
                             @await Html.PartialAsync("_ReservaItemPartial", Model)
                         </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Observacao"></label>
+                        <textarea class="form-control" asp-for="Observacao" style="height: 150px;"></textarea>
+                        <span asp-validation-for="Observacao" class="text-danger"></span>
                     </div>
 
                     @if (Model.Status == ReservaStatus.Aberta)

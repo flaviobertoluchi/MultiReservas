@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MultiReservas.Config;
 using MultiReservas.Data.Interfaces;
 using MultiReservas.Extensions;
 using MultiReservas.Models;
@@ -9,10 +10,11 @@ namespace MultiReservas.Controllers
 {
     [UsuarioAutorizacao]
     [Route("reserva")]
-    public class ReservaController(IReservaRepository repository, IItemRepository itemRepository, Sessao sessao) : Controller
+    public class ReservaController(IReservaRepository repository, IItemRepository itemRepository, IConfiguracaoRepository configuracaoRepository, Sessao sessao) : Controller
     {
         private readonly IReservaRepository repository = repository;
         private readonly IItemRepository itemRepository = itemRepository;
+        private readonly IConfiguracaoRepository configuracaoRepository = configuracaoRepository;
         private readonly Sessao sessao = sessao;
 
         [Route("local")]
@@ -34,14 +36,42 @@ namespace MultiReservas.Controllers
         }
 
         [Route("adicionar")]
-        public IActionResult Adicionar(int local)
+        public async Task<IActionResult> Adicionar(int local)
         {
+            var configuracao = await configuracaoRepository.Obter();
+            ViewBag.QuantidadeLocais = configuracao?.QuantidadeLocais;
+
+            var reservas = await repository.ObterTodos(ReservaStatus.Aberta, local);
+
+            if (reservas.Count >= configuracao?.ReservasPorLocal)
+            {
+                ViewBag.Mensagem = Mensagens.MaxReservasLocal;
+                return View();
+            }
+
             return View(new Reserva() { Local = local, DataInicio = DateTime.Today.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute) });
         }
 
         [HttpPost("adicionar")]
         public async Task<IActionResult> Adicionar(Reserva model)
         {
+            var configuracao = await configuracaoRepository.Obter();
+            ViewBag.QuantidadeLocais = configuracao?.QuantidadeLocais;
+
+            var reservas = await repository.ObterTodos(ReservaStatus.Aberta, model.Local);
+
+            if (model.Local <= 0 || model.Local > configuracao?.QuantidadeLocais)
+            {
+                ViewBag.Mensagem = Mensagens.LocalInvalido;
+                return View(model);
+            }
+
+            if (reservas.Count >= configuracao?.ReservasPorLocal)
+            {
+                ViewBag.Mensagem = Mensagens.MaxReservasLocal;
+                return View(model);
+            }
+
             if (!ModelState.IsValid) return View(model);
 
             var usuario = sessao.ObterUsuario();
@@ -63,6 +93,8 @@ namespace MultiReservas.Controllers
                 Text = x.Nome
             }).ToList();
 
+            ViewBag.QuantidadeLocais = (await configuracaoRepository.Obter())?.QuantidadeLocais;
+
             return View(await repository.Obter(id));
         }
 
@@ -75,17 +107,36 @@ namespace MultiReservas.Controllers
                 Text = x.Nome
             }).ToList();
 
+            var configuracao = await configuracaoRepository.Obter();
+            ViewBag.QuantidadeLocais = configuracao?.QuantidadeLocais;
+
+            if (model.Local <= 0 || model.Local > configuracao?.QuantidadeLocais)
+            {
+                ViewBag.Mensagem = Mensagens.LocalInvalido;
+                return View(model);
+            }
+
             //TODO - verificar permissão do usuario para reservaStatus
             if (!ModelState.IsValid || id != model.Id) return View(model);
 
             var reserva = await repository.Obter(id);
             if (reserva is null || reserva.Status != ReservaStatus.Aberta) return View(model);
 
+            if (reserva.Local != model.Local)
+            {
+                if ((await repository.ObterTodos(ReservaStatus.Aberta, model.Local)).Count >= configuracao?.ReservasPorLocal)
+                {
+                    ViewBag.Mensagem = Mensagens.MaxReservasLocal;
+                    return View(model);
+                }
+            }
+
             reserva.Local = model.Local;
             reserva.Nome = model.Nome;
             reserva.Status = reservaStatus;
             reserva.DataInicio = model.DataInicio;
             reserva.ReservaItens = model.ReservaItens;
+            reserva.Observacao = model.Observacao;
 
             if (reservaStatus == ReservaStatus.Finalizada || reservaStatus == ReservaStatus.Cancelada)
             {

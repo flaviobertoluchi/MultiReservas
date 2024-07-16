@@ -1,0 +1,53 @@
+﻿@model Configuracao
+
+@{
+    ViewData["Title"] = "Configuração";
+}
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-6">
+
+            @if (ViewBag.Mensagem is not null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Mensagem
+                </div>
+            }
+
+            <form method="post">
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="NomeLocais"></label>
+                    <input class="form-control" asp-for="NomeLocais" />
+                    <span asp-validation-for="NomeLocais" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="QuantidadeLocais"></label>
+                    <input class="form-control" asp-for="QuantidadeLocais">
+                    <span asp-validation-for="QuantidadeLocais" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="ReservasPorLocal"></label>
+                    <input class="form-control" asp-for="ReservasPorLocal">
+                    <span asp-validation-for="ReservasPorLocal" class="text-danger"></span>
+                </div>
+
+                <button class="btn btn-primary" asp-area="" asp-controller="Configuracao" asp-action="Index">
+                    <i class="fa-solid fa-floppy-disk"></i> Salvar
+                </button>
+
+                <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-calendar-days"></i> Voltar
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

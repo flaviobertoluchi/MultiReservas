@@ -15,7 +15,7 @@ namespace MultiReservas.Data
             var query = context.Reservas.AsNoTracking().AsQueryable();
 
             if (status is not null) query = query.Where(x => x.Status == status);
-            if (local is not null && local > 0) query = query.Where(x => x.Local == local);
+            if (local is not null) query = query.Where(x => x.Local == local);
 
             return await query.ToListAsync();
         }

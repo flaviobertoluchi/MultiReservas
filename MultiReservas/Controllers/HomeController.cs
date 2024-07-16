@@ -8,12 +8,16 @@ using System.Diagnostics;
 namespace MultiReservas.Controllers
 {
     [UsuarioAutorizacao]
-    public class HomeController(IReservaRepository reservaRepository) : Controller
+    public class HomeController(IReservaRepository reservaRepository, IConfiguracaoRepository configuracaoRepository) : Controller
     {
         private readonly IReservaRepository reservaRepository = reservaRepository;
+        private readonly IConfiguracaoRepository configuracaoRepository = configuracaoRepository;
 
         public async Task<IActionResult> Index()
         {
+            var configuracao = await configuracaoRepository.Obter();
+            ViewBag.NomeLocais = configuracao?.NomeLocais;
+            ViewBag.QuantidadeLocais = configuracao?.QuantidadeLocais;
             return View(await reservaRepository.ObterTodos(ReservaStatus.Aberta));
         }
 

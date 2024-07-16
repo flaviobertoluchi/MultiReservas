@@ -6,37 +6,52 @@
 
 <div class="container mt-3">
     <div class="row justify-content-center">
-        <div class="col-6">
 
-            <form method="post">
+        @if (ViewBag.Mensagem is not null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Mensagem
+            </div>
+        }
+        else
+        {
+            <div class="col-6">
 
-                <div class="mb-3">
-                    <label class="form-label" asp-for="Local"></label>
-                    <input class="form-control" asp-for="Local" min="1" max="20" /> @* TODO - buscar valor máximo no sistema *@
-                    <span asp-validation-for="Local" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" asp-for="Nome"></label>
-                    <input class="form-control" asp-for="Nome">
-                    <span asp-validation-for="Nome" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" asp-for="DataInicio"></label>
-                    <input class="form-control" asp-for="DataInicio">
-                    <span asp-validation-for="DataInicio" class="text-danger"></span>
-                </div>
+                <form method="post">
 
-                <button class="btn btn-success" asp-area="" asp-controller="Reserva" asp-action="Adicionar">
-                    <i class="fa-solid fa-floppy-disk"></i> Reservar
-                </button>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Local"></label>
+                        <input class="form-control" asp-for="Local" min="1" max="@ViewBag.QuantidadeLocais" />
+                        <span asp-validation-for="Local" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Nome"></label>
+                        <input class="form-control" asp-for="Nome">
+                        <span asp-validation-for="Nome" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="DataInicio"></label>
+                        <input class="form-control" asp-for="DataInicio">
+                        <span asp-validation-for="DataInicio" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Observacao"></label>
+                        <textarea class="form-control" asp-for="Observacao" style="height: 150px;"></textarea>
+                        <span asp-validation-for="Observacao" class="text-danger"></span>
+                    </div>
 
-                <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="fa-solid fa-calendar-days"></i> Voltar
-                </a>
+                    <button class="btn btn-success" asp-area="" asp-controller="Reserva" asp-action="Adicionar">
+                        <i class="fa-solid fa-floppy-disk"></i> Reservar
+                    </button>
 
-            </form>
+                    <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="fa-solid fa-calendar-days"></i> Voltar
+                    </a>
 
-        </div>
+                </form>
+            </div>
+        }
+
     </div>
 </div>
 

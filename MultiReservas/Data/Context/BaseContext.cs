@@ -9,6 +9,7 @@ namespace MultiReservas.Data.Context
         public DbSet<Reserva> Reservas { get; set; }
         public DbSet<ReservaItem> ReservaItens { get; set; }
         public DbSet<Item> Itens { get; set; }
+        public DbSet<Configuracao> Configuracoes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +22,13 @@ namespace MultiReservas.Data.Context
                     Login = "admin",
                     Senha = "7a8b097ac97ab751667457209d1f714d7473283c000dee9e3cd2c59fa6977b40",
                     Ativo = true
+                });
+
+            modelBuilder.Entity<Configuracao>().HasData(
+                new Configuracao
+                {
+                    Id = 1,
+                    QuantidadeLocais = 100
                 });
 
             base.OnModelCreating(modelBuilder);
