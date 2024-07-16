@@ -17,10 +17,15 @@ namespace MultiReservas.Controllers
         private readonly IConfiguracaoRepository configuracaoRepository = configuracaoRepository;
         private readonly Sessao sessao = sessao;
 
-        [Route("local")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await repository.ObterPaginado(1, 10, ReservaOrdem.Id, false, "", "", null, null));
+        }
+
+        [Route("paginacao")]
+        public async Task<IActionResult> ReservaPaginacao(int pagina = 1, int qtdPorPagina = 10, ReservaOrdem ordem = ReservaOrdem.Id, bool desc = false, string pesquisa = "", string pesquisaNome = "", DateTime? dataInicial = null, DateTime? datafinal = null)
+        {
+            return PartialView("_ReservaPaginacaoPartial", await repository.ObterPaginado(pagina, qtdPorPagina, ordem, desc, pesquisa, pesquisaNome, dataInicial, datafinal));
         }
 
         [Route("local/{local}")]
