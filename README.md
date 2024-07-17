@@ -4,13 +4,13 @@ Um sistema construído em .NET 8 para reserva de locais, alguns exemplos de uso s
 
 ![Página Inicial](img/pagina_inicial.png)
 
-O sistema também é responsivo ao tamanho da tela e tema claro/escuro do dispositivo.
-
-![Dispositivo Móvel Tema Claro](img/movel_claro.png)
-
 A quantidade de locais pode ser alterada nas configurações do sistema, assim como o limite de reservas por local, permitindo multiplas reservas, útil para restaurantes com mais de uma comanda ou reservas futuras. 
 
 ![MultiReservas](img/multireservas.png)
+
+O sistema também é responsivo ao tamanho da tela e tema claro/escuro do dispositivo.
+
+![Dispositivo Móvel Tema Claro](img/movel_claro.png)
 
 ## Como executar
 
@@ -24,7 +24,7 @@ A quantidade de locais pode ser alterada nas configurações do sistema, assim com
 - Execute o sistema abrindo o arquivo MultiReservas.exe ou MultiReservas.dll dependendo do sistema operacional.
 - Abra o link gerado no navegador, utilize o usuário **admin** com senha **admin**.
 
-#### Banco de dados (opcional)
+#### Banco de dados (Opcional)
 
 - O sistema pode ser executado em um dos seguintes bancos:
 
