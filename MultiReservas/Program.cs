@@ -38,6 +38,13 @@ switch (banco.Value)
         builder.Services.AddScoped<IItemRepository, ItemRepository<PostgreSQLContext>>();
         builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository<PostgreSQLContext>>();
         break;
+    case "MySQL":
+        builder.Services.AddDbContext<MySQLContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("MySQL") ?? string.Empty));
+        builder.Services.AddScoped<IReservaRepository, ReservaRepository<MySQLContext>>();
+        builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository<MySQLContext>>();
+        builder.Services.AddScoped<IItemRepository, ItemRepository<MySQLContext>>();
+        builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository<MySQLContext>>();
+        break;
     default:
         throw new Exception("Banco inválido");
 }
