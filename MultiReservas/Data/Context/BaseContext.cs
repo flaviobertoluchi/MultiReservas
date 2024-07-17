@@ -39,7 +39,7 @@ namespace MultiReservas.Data.Context
                 new Configuracao
                 {
                     Id = 1,
-                    QuantidadeLocais = 100
+                    QuantidadeLocais = 50
                 });
 
             base.OnModelCreating(modelBuilder);
