@@ -7,13 +7,13 @@ using System.Diagnostics;
 
 namespace MultiReservas.Controllers
 {
-    [UsuarioAutorizacao]
     public class HomeController(IReservaRepository reservaRepository, IConfiguracaoRepository configuracaoRepository, Sessao sessao) : Controller
     {
         private readonly IReservaRepository reservaRepository = reservaRepository;
         private readonly IConfiguracaoRepository configuracaoRepository = configuracaoRepository;
         private readonly Usuario usuario = sessao.ObterUsuario() ?? new();
 
+        [UsuarioAutorizacao]
         public async Task<IActionResult> Index()
         {
             if (!(usuario.Reservas || usuario.PaginaInicial)) return View();
@@ -24,6 +24,7 @@ namespace MultiReservas.Controllers
             return View(await reservaRepository.ObterTodos(ReservaStatus.Aberta));
         }
 
+        [UsuarioAutorizacao]
         [Route("indexpartial")]
         public async Task<IActionResult> IndexPartial()
         {
