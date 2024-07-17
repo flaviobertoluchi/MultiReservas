@@ -23,9 +23,9 @@
 
                     @if (Model.Status == ReservaStatus.Aberta && (usuario.Reservas || usuario.AdicionarReservas))
                     {
-                        <a class="btn btn-primary m-1 float-end" asp-area="" asp-controller="Reserva" asp-action="Adicionar" asp-route-local="@Model.Local">
-                            <span class="h2"><i class="fa-solid fa-plus"></i></span>
-                            <p class="h4">Nova</p>
+                        <a class="btn btn-primary m-1 float-end" style="min-width: 120px;" asp-area="" asp-controller="Reserva" asp-action="Adicionar" asp-route-local="@Model.Local">
+                            <span class="h5"><i class="fa-solid fa-plus"></i></span>
+                            <p class="h5">Nova</p>
                         </a>
                     }
 
@@ -98,27 +98,41 @@
                     {
                         @if (usuario.Reservas || usuario.EditarReservas)
                         {
-                            <button class="btn btn-primary mb-2" asp-area="" asp-controller="Reserva" asp-action="Detalhes" asp-route-id="@Model.Id">
-                                <i class="fa-solid fa-floppy-disk"></i> Salvar
+                            <button class="btn btn-primary mb-2" style="min-width: 120px;" asp-area="" asp-controller="Reserva" asp-action="Detalhes" asp-route-id="@Model.Id">
+                                <span class="h5"><i class="fa-solid fa-floppy-disk"></i></span>
+                                <p class="h5">Salvar</p>
                             </button>
                         }
                         @if (usuario.Reservas || usuario.FinalizarReservas)
                         {
-                            <a class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#finalizarModal">
-                                <i class="fa-solid fa-credit-card"></i> Finalizar
+                            <a class="btn btn-success mb-2" style="min-width: 120px;" data-bs-toggle="modal" data-bs-target="#finalizarModal">
+                                <span class="h5"><i class="fa-solid fa-credit-card"></i></span>
+                                <p class="h5">Finalizar</p>
                             </a>
                         }
                         @if (usuario.Reservas || usuario.CancelarReservas)
                         {
-                            <a class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#cancelarModal">
-                                <i class="fa-solid fa-ban"></i> Cancelar
+                            <a class="btn btn-danger mb-2" style="min-width: 120px;" data-bs-toggle="modal" data-bs-target="#cancelarModal">
+                                <span class="h5"><i class="fa-solid fa-ban"></i></span>
+                                <p class="h5">Cancelar</p>
                             </a>
                         }
                     }
 
-                    <a class="btn btn-secondary mb-2" asp-area="" asp-controller="Home" asp-action="Index">
-                        <i class="fa-solid fa-calendar-days"></i> Voltar
-                    </a>
+                    @if (ViewBag.VoltarPaginaInicial is not null && ViewBag.VoltarPaginaInicial == true)
+                    {
+                        <a class="btn btn-secondary mb-2" style="min-width: 120px;" asp-area="" asp-controller="Home" asp-action="Index">
+                            <span class="h5"><i class="fa-solid fa-calendar-days"></i></span>
+                            <p class="h5">Voltar</p>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-secondary mb-2" style="min-width: 120px;" asp-area="" asp-controller="Reserva" asp-action="Index">
+                            <span class="h5"><i class="fa-solid fa-calendar-days"></i></span>
+                            <p class="h5">Voltar</p>
+                        </a>
+                    }
 
                 </div>
             </div>

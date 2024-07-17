@@ -47,14 +47,25 @@
                             <span asp-validation-for="Observacao" class="text-danger"></span>
                         </div>
 
-                        <button class="btn btn-success mb-2" asp-area="" asp-controller="Reserva" asp-action="Adicionar">
-                            <i class="fa-solid fa-square-plus"></i> Reservar
+                        <button class="btn btn-success mb-2" style="min-width: 120px;" asp-area="" asp-controller="Reserva" asp-action="Adicionar">
+                            <span class="h5"><i class="fa-solid fa-square-plus"></i></span>
+                            <p class="h5">Reservar</p>
                         </button>
 
-                        <a class="btn btn-secondary mb-2" asp-area="" asp-controller="Home" asp-action="Index">
-                            <i class="fa-solid fa-calendar-days"></i> Voltar
-                        </a>
-
+                        @if (ViewBag.VoltarPaginaInicial is not null && ViewBag.VoltarPaginaInicial == true)
+                        {
+                            <a class="btn btn-secondary mb-2" style="min-width: 120px;" asp-area="" asp-controller="Home" asp-action="Index">
+                                <span class="h5"><i class="fa-solid fa-calendar-days"></i></span>
+                                <p class="h5">Voltar</p>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-secondary mb-2" style="min-width: 120px;" asp-area="" asp-controller="Reserva" asp-action="Index">
+                                <span class="h5"><i class="fa-solid fa-calendar-days"></i></span>
+                                <p class="h5">Voltar</p>
+                            </a>
+                        }
                     </form>
                 </div>
             }

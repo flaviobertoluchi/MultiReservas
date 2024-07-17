@@ -44,9 +44,12 @@ namespace MultiReservas.Controllers
         }
 
         [Route("adicionar")]
-        public async Task<IActionResult> Adicionar(int local)
+        public async Task<IActionResult> Adicionar(int local, bool voltarPaginaInicial = true)
         {
             if (!(usuario.Reservas || usuario.AdicionarReservas)) return View();
+
+            ViewBag.VoltarPaginaInicial = voltarPaginaInicial;
+
             var configuracao = await configuracaoRepository.Obter();
             ViewBag.QuantidadeLocais = configuracao?.QuantidadeLocais;
 
@@ -62,9 +65,12 @@ namespace MultiReservas.Controllers
         }
 
         [HttpPost("adicionar")]
-        public async Task<IActionResult> Adicionar(Reserva model)
+        public async Task<IActionResult> Adicionar(Reserva model, bool voltarPaginaInicial = true)
         {
             if (!(usuario.Reservas || usuario.AdicionarReservas)) return View();
+
+            ViewBag.VoltarPaginaInicial = voltarPaginaInicial;
+
             var configuracao = await configuracaoRepository.Obter();
             ViewBag.QuantidadeLocais = configuracao?.QuantidadeLocais;
 
@@ -92,9 +98,12 @@ namespace MultiReservas.Controllers
         }
 
         [Route("detalhes/{id}")]
-        public async Task<IActionResult> Detalhes(int id)
+        public async Task<IActionResult> Detalhes(int id, bool voltarPaginaInicial = true)
         {
             if (!(usuario.Reservas || usuario.EditarReservas)) return View();
+
+            ViewBag.VoltarPaginaInicial = voltarPaginaInicial;
+
             ViewBag.Itens = (await itemRepository.ObterTodos()).Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),
@@ -107,9 +116,12 @@ namespace MultiReservas.Controllers
         }
 
         [HttpPost("detalhes/{id}")]
-        public async Task<IActionResult> Detalhes(int id, Reserva model, ReservaStatus reservaStatus = ReservaStatus.Aberta)
+        public async Task<IActionResult> Detalhes(int id, Reserva model, ReservaStatus reservaStatus = ReservaStatus.Aberta, bool voltarPaginaInicial = true)
         {
             if (!(usuario.Reservas || usuario.EditarReservas)) return View();
+
+            ViewBag.VoltarPaginaInicial = voltarPaginaInicial;
+
             ViewBag.Itens = (await itemRepository.ObterTodos()).Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),

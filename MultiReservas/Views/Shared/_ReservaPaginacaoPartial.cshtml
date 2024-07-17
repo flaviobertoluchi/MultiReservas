@@ -12,7 +12,7 @@
                 <th scope="col">Usuário</th>
                 <th scope="col">Status</th>
                 <th scope="col" class="text-end">
-                    <a class="btn btn-primary" style="min-width: 42px;" asp-area="" asp-controller="Reserva" asp-action="Adicionar">
+                    <a class="btn btn-primary" style="min-width: 42px;" asp-area="" asp-controller="Reserva" asp-action="Adicionar" asp-route-voltarPaginaInicial="false">
                         <i class="fa-solid fa-square-plus"></i>
                     </a>
                 </th>
@@ -32,7 +32,7 @@
                         <td>@item.Usuario?.Login</td>
                         <td>@item.Status</td>
                         <td class="text-end">
-                            <a class="btn btn-secondary" style="min-width: 42px;" asp-area="" asp-controller="Reserva" asp-action="Detalhes" asp-route-id="@item.Id">
+                            <a class="btn btn-secondary" style="min-width: 42px;" asp-area="" asp-controller="Reserva" asp-action="Detalhes" asp-route-id="@item.Id" asp-route-voltarPaginaInicial="false">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         </td>
