@@ -7,10 +7,6 @@ using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Migrations precisa de um ativo
-//builder.Services.AddDbContext<SQLiteContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SQLite")));
-//builder.Services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-
 var banco = builder.Configuration.GetRequiredSection("Banco");
 switch (banco.Value)
 {
