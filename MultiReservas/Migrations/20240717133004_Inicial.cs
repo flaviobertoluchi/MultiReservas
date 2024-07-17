@@ -15,11 +15,11 @@ namespace MultiReservas.Migrations
                 name: "Configuracoes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeLocais = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    QuantidadeLocais = table.Column<int>(type: "int", nullable: false),
-                    ReservasPorLocal = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NomeLocais = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    QuantidadeLocais = table.Column<int>(type: "INTEGER", nullable: false),
+                    ReservasPorLocal = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,11 +30,11 @@ namespace MultiReservas.Migrations
                 name: "Itens",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Preco = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    Preco = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false),
+                    Ativo = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,22 +45,22 @@ namespace MultiReservas.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Senha = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false),
-                    PaginaInicial = table.Column<bool>(type: "bit", nullable: false),
-                    Reservas = table.Column<bool>(type: "bit", nullable: false),
-                    Itens = table.Column<bool>(type: "bit", nullable: false),
-                    Usuarios = table.Column<bool>(type: "bit", nullable: false),
-                    Configuracao = table.Column<bool>(type: "bit", nullable: false),
-                    AdicionarReservas = table.Column<bool>(type: "bit", nullable: false),
-                    EditarReservas = table.Column<bool>(type: "bit", nullable: false),
-                    FinalizarReservas = table.Column<bool>(type: "bit", nullable: false),
-                    CancelarReservas = table.Column<bool>(type: "bit", nullable: false),
-                    AdicionarItensReserva = table.Column<bool>(type: "bit", nullable: false),
-                    RemoverItensReserva = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Login = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    Senha = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
+                    Ativo = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Reservas = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Itens = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Usuarios = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Configuracao = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PaginaInicial = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AdicionarReservas = table.Column<bool>(type: "INTEGER", nullable: false),
+                    EditarReservas = table.Column<bool>(type: "INTEGER", nullable: false),
+                    FinalizarReservas = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CancelarReservas = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AdicionarItensReserva = table.Column<bool>(type: "INTEGER", nullable: false),
+                    RemoverItensReserva = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,15 +71,15 @@ namespace MultiReservas.Migrations
                 name: "Reservas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    Local = table.Column<int>(type: "int", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    DataInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DataFim = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Observacao = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UsuarioId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Local = table.Column<int>(type: "INTEGER", nullable: false),
+                    Nome = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Status = table.Column<int>(type: "INTEGER", nullable: false),
+                    DataInicio = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataFim = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Observacao = table.Column<string>(type: "TEXT", maxLength: 2000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -96,11 +96,11 @@ namespace MultiReservas.Migrations
                 name: "ReservaItens",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ReservaId = table.Column<int>(type: "int", nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantidade = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ReservaId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Quantidade = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,7 +122,7 @@ namespace MultiReservas.Migrations
             migrationBuilder.InsertData(
                 table: "Configuracoes",
                 columns: new[] { "Id", "NomeLocais", "QuantidadeLocais", "ReservasPorLocal" },
-                values: new object[] { 1, null, 100, null });
+                values: new object[] { 1, null, 50, null });
 
             migrationBuilder.InsertData(
                 table: "Usuarios",

@@ -8,11 +8,19 @@ using System.Globalization;
 var builder = WebApplication.CreateBuilder(args);
 
 //Migrations precisa de um ativo
-builder.Services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+//builder.Services.AddDbContext<SQLiteContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SQLite")));
+//builder.Services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
 var banco = builder.Configuration.GetRequiredSection("Banco");
 switch (banco.Value)
 {
+    case "SQLite":
+        builder.Services.AddDbContext<SQLiteContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SQLite")));
+        builder.Services.AddScoped<IReservaRepository, ReservaRepository<SQLiteContext>>();
+        builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository<SQLiteContext>>();
+        builder.Services.AddScoped<IItemRepository, ItemRepository<SQLiteContext>>();
+        builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository<SQLiteContext>>();
+        break;
     case "SqlServer":
         builder.Services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
         builder.Services.AddScoped<IReservaRepository, ReservaRepository<SqlServerContext>>();
