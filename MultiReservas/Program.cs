@@ -31,6 +31,13 @@ switch (banco.Value)
         builder.Services.AddScoped<IItemRepository, ItemRepository<OracleContext>>();
         builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository<OracleContext>>();
         break;
+    case "PostgreSQL":
+        builder.Services.AddDbContext<PostgreSQLContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
+        builder.Services.AddScoped<IReservaRepository, ReservaRepository<PostgreSQLContext>>();
+        builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository<PostgreSQLContext>>();
+        builder.Services.AddScoped<IItemRepository, ItemRepository<PostgreSQLContext>>();
+        builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository<PostgreSQLContext>>();
+        break;
     default:
         throw new Exception("Banco inválido");
 }
