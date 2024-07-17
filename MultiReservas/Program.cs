@@ -24,6 +24,13 @@ switch (banco.Value)
         builder.Services.AddScoped<IItemRepository, ItemRepository<SqlServerContext>>();
         builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository<SqlServerContext>>();
         break;
+    case "Oracle":
+        builder.Services.AddDbContext<OracleContext>(options => options.UseOracle(builder.Configuration.GetConnectionString("Oracle")));
+        builder.Services.AddScoped<IReservaRepository, ReservaRepository<OracleContext>>();
+        builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository<OracleContext>>();
+        builder.Services.AddScoped<IItemRepository, ItemRepository<OracleContext>>();
+        builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository<OracleContext>>();
+        break;
     default:
         throw new Exception("Banco inválido");
 }
