@@ -20,7 +20,7 @@
             }
             else
             {
-                <div class="col-6">
+                <div class="col-md-10 col-lg-8 col-xl-6">
 
                     <form method="post">
 
@@ -45,11 +45,11 @@
                             <span asp-validation-for="Observacao" class="text-danger"></span>
                         </div>
 
-                        <button class="btn btn-success" asp-area="" asp-controller="Reserva" asp-action="Adicionar">
-                            <i class="fa-solid fa-floppy-disk"></i> Reservar
+                        <button class="btn btn-success mb-2" asp-area="" asp-controller="Reserva" asp-action="Adicionar">
+                            <i class="fa-solid fa-square-plus"></i> Reservar
                         </button>
 
-                        <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">
+                        <a class="btn btn-secondary mb-2" asp-area="" asp-controller="Home" asp-action="Index">
                             <i class="fa-solid fa-calendar-days"></i> Voltar
                         </a>
 

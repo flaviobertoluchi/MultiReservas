@@ -12,7 +12,7 @@
     <form method="post">
         <div class="container mt-3">
             <div class="row justify-content-center">
-                <div class="col-6">
+                <div class="col-md-10 col-lg-8 col-xl-6">
 
                     @if (ViewBag.Mensagem is not null)
                     {
@@ -59,15 +59,15 @@
                             <div class="mb-4">
                                 <div class="row">
                                     <span class="h4">Adicionar item:</span>
-                                    <div class="col-7">
+                                    <div class="col-8 col-md-7 mb-2">
                                         <select class="form-select item" asp-items="@ViewBag.Itens">
                                             <option value="-1" selected></option>
                                         </select>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-4 col-md-2 mb-2">
                                         <input class="form-control quantidade" type="number" min="1" value="1">
                                     </div>
-                                    <div class="col-3 text-end">
+                                    <div class="col-md-3  mb-2 text-end">
                                         <a class="btn btn-primary adicionar"><i class="fa-solid fa-plus"></i> Adicionar</a>
                                     </div>
                                 </div>
@@ -98,25 +98,25 @@
                     {
                         @if (usuario.Reservas || usuario.EditarReservas)
                         {
-                            <button class="btn btn-primary" asp-area="" asp-controller="Reserva" asp-action="Detalhes" asp-route-id="@Model.Id">
+                            <button class="btn btn-primary mb-2" asp-area="" asp-controller="Reserva" asp-action="Detalhes" asp-route-id="@Model.Id">
                                 <i class="fa-solid fa-floppy-disk"></i> Salvar
                             </button>
                         }
                         @if (usuario.Reservas || usuario.FinalizarReservas)
                         {
-                            <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#finalizarModal">
+                            <a class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#finalizarModal">
                                 <i class="fa-solid fa-credit-card"></i> Finalizar
                             </a>
                         }
                         @if (usuario.Reservas || usuario.CancelarReservas)
                         {
-                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarModal">
+                            <a class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#cancelarModal">
                                 <i class="fa-solid fa-ban"></i> Cancelar
                             </a>
                         }
                     }
 
-                    <a class="btn btn-secondary" asp-area="" asp-controller="Home" asp-action="Index">
+                    <a class="btn btn-secondary mb-2" asp-area="" asp-controller="Home" asp-action="Index">
                         <i class="fa-solid fa-calendar-days"></i> Voltar
                     </a>
 
