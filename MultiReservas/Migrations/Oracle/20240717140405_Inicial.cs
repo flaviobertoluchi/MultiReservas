@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -46,7 +45,7 @@ namespace MultiReservas.Migrations.Oracle
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                        .Annotation("Oracle:Identity", "START WITH 2 INCREMENT BY 1"),
                     Login = table.Column<string>(type: "NVARCHAR2(20)", maxLength: 20, nullable: false),
                     Senha = table.Column<string>(type: "NVARCHAR2(64)", maxLength: 64, nullable: false),
                     Ativo = table.Column<bool>(type: "BOOLEAN", nullable: false),

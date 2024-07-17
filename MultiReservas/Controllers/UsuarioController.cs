@@ -43,7 +43,17 @@ namespace MultiReservas.Controllers
         {
             if (!ModelState.IsValid || !usuario.Usuarios) return View(model);
 
+            model.Login = model.Login.Trim().ToLower();
+
+            var usuarioLogin = await repository.ObterPorLogin(model.Login);
+            if (usuarioLogin is not null)
+            {
+                ViewBag.Mensagem = "Login já cadastrado.";
+                return View(model);
+            }
+
             model.Senha = CriptografiaSHA256.Criptografar(model.Senha);
+
             await repository.Adicionar(model);
 
             return RedirectToAction(nameof(Index));
@@ -62,6 +72,15 @@ namespace MultiReservas.Controllers
         public async Task<IActionResult> Detalhes(int id, Usuario model)
         {
             if (!ModelState.IsValid || id != model.Id || !usuario.Usuarios) return View(model);
+
+            model.Login = model.Login.Trim().ToLower();
+
+            var usuarioLogin = await repository.ObterPorLogin(model.Login);
+            if (usuarioLogin is not null && usuarioLogin.Id != model.Id)
+            {
+                ViewBag.Mensagem = "Login já cadastrado.";
+                return View(model);
+            }
 
             var usuarioBanco = await repository.Obter(id);
             if (usuarioBanco is null) return View(model);
@@ -97,7 +116,7 @@ namespace MultiReservas.Controllers
         public async Task<IActionResult> Entrar(string login, string senha, string? returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            var usuarioBanco = await repository.ObterPorLoginESenha(login, CriptografiaSHA256.Criptografar(senha));
+            var usuarioBanco = await repository.ObterPorLoginESenha(login.Trim().ToLower(), CriptografiaSHA256.Criptografar(senha));
             if (usuarioBanco is null)
             {
                 ViewBag.Mensagem = "Credenciais inválidas.";

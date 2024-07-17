@@ -63,6 +63,11 @@ namespace MultiReservas.Data
             return await context.Usuarios.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Usuario?> ObterPorLogin(string login)
+        {
+            return await context.Usuarios.AsNoTracking().FirstOrDefaultAsync(x => x.Login == login);
+        }
+
         public async Task Adicionar(Usuario usuario)
         {
             context.Add(usuario);

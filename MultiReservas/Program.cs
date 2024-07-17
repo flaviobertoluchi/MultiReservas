@@ -37,6 +37,7 @@ switch (banco.Value)
         builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository<PostgreSQLContext>>();
         builder.Services.AddScoped<IItemRepository, ItemRepository<PostgreSQLContext>>();
         builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository<PostgreSQLContext>>();
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         break;
     case "MySQL":
         builder.Services.AddDbContext<MySQLContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("MySQL") ?? string.Empty));

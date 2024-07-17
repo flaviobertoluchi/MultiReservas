@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -78,8 +77,8 @@ namespace MultiReservas.Migrations.PostgreSQL
                     Local = table.Column<int>(type: "integer", nullable: false),
                     Nome = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    DataInicio = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DataFim = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DataInicio = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    DataFim = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     Observacao = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true)
                 },
                 constraints: table =>

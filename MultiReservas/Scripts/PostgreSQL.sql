@@ -47,8 +47,8 @@ CREATE TABLE "Reservas" (
     "Local" integer NOT NULL,
     "Nome" character varying(100) NOT NULL,
     "Status" integer NOT NULL,
-    "DataInicio" timestamp with time zone NOT NULL,
-    "DataFim" timestamp with time zone,
+    "DataInicio" timestamp without time zone NOT NULL,
+    "DataFim" timestamp without time zone,
     "Observacao" character varying(2000),
     CONSTRAINT "PK_Reservas" PRIMARY KEY ("Id"),
     CONSTRAINT "FK_Reservas_Usuarios_UsuarioId" FOREIGN KEY ("UsuarioId") REFERENCES "Usuarios" ("Id") ON DELETE CASCADE
