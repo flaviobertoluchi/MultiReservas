@@ -11,57 +11,47 @@
 {
     <div class="container mt-3">
         <div class="row justify-content-center">
+            <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4">
 
-            @if (ViewBag.Mensagem is not null)
-            {
-                <div class="alert alert-danger">
-                    @ViewBag.Mensagem
-                </div>
-            }
-            else
-            {
-                <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4">
+                <h4 class="mb-4">Detalhes Item</h4>
 
-                    <h4 class="mb-4">Detalhes Item</h4>
+                <form method="post">
 
-                    <form method="post">
-
-                        <div class="mb-3">
-                            <label class="form-label" asp-for="Id"></label>
-                            <input readonly class="form-control" asp-for="Id">
-                            <span asp-validation-for="Id" class="text-danger"></span>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Id"></label>
+                        <input readonly class="form-control" asp-for="Id">
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Nome"></label>
+                        <input class="form-control" asp-for="Nome">
+                        <span asp-validation-for="Nome" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Preco"></label>
+                        <div class="input-group">
+                            <span class="input-group-text">R$</span>
+                            <input class="form-control decimal" asp-for="Preco">
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" asp-for="Nome"></label>
-                            <input class="form-control" asp-for="Nome">
-                            <span asp-validation-for="Nome" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" asp-for="Preco"></label>
-                            <div class="input-group">
-                                <span class="input-group-text">R$</span>
-                                <input class="form-control decimal" asp-for="Preco">
-                            </div>
-                            <span asp-validation-for="Preco" class="text-danger"></span>
-                        </div>
+                        <span asp-validation-for="Preco" class="text-danger"></span>
+                    </div>
 
-                        <div class="form-check form-switch mb-3">
-                            <input class="form-check-input" asp-for="Ativo">
-                            <label class="form-check-label" asp-for="Ativo"></label>
-                        </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" asp-for="Ativo">
+                        <label class="form-check-label" asp-for="Ativo"></label>
+                    </div>
 
-                        <button class="btn btn-primary mb-2" asp-area="" asp-controller="Item" asp-action="Detalhes">
-                            <i class="fa-solid fa-floppy-disk"></i> Salvar
-                        </button>
+                    <button class="btn btn-primary mb-2" asp-area="" asp-controller="Item" asp-action="Detalhes">
+                        <i class="fa-solid fa-floppy-disk"></i> Salvar
+                    </button>
 
-                        <a class="btn btn-secondary mb-2" asp-area="" asp-controller="Item" asp-action="Index">
-                            <i class="fa-solid fa-circle-left"></i> Voltar
-                        </a>
+                    <a class="btn btn-secondary mb-2" asp-area="" asp-controller="Item" asp-action="Index">
+                        <i class="fa-solid fa-circle-left"></i> Voltar
+                    </a>
 
-                    </form>
-                </div>
-            }
+                </form>
 
+            </div>
         </div>
     </div>
 

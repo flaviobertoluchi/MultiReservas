@@ -3,7 +3,6 @@
     public enum ItemOrdem
     {
         Id,
-        Nome,
-        Preco
+        Nome
     }
 }

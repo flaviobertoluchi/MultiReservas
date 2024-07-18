@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiReservas.Config;
 using MultiReservas.Data.Interfaces;
 using MultiReservas.Extensions;
 using MultiReservas.Models;
@@ -39,6 +40,8 @@ namespace MultiReservas.Controllers
 
             await repository.Adicionar(model);
 
+            TempData["Sucesso"] = Mensagens.AdicionarSucesso;
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -62,6 +65,8 @@ namespace MultiReservas.Controllers
             item.Ativo = model.Ativo;
 
             await repository.Atualizar(item);
+
+            TempData["Sucesso"] = Mensagens.AtualizarSucesso;
 
             return RedirectToAction(nameof(Index));
         }

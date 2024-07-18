@@ -9,6 +9,8 @@ namespace MultiReservas.Models
     {
         public int Id { get; set; }
         public int UsuarioId { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Mensagens), ErrorMessageResourceName = nameof(Mensagens.Required))]
         public int Local { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Mensagens), ErrorMessageResourceName = nameof(Mensagens.Required))]

@@ -23,7 +23,6 @@ namespace MultiReservas.Data
                 query = ordem switch
                 {
                     ItemOrdem.Nome => query.OrderByDescending(x => x.Nome).ThenByDescending(x => x.Id),
-                    ItemOrdem.Preco => query.OrderByDescending(x => x.Preco).ThenByDescending(x => x.Id),
                     _ => query.OrderByDescending(x => x.Id),
                 };
             }
@@ -32,7 +31,6 @@ namespace MultiReservas.Data
                 query = ordem switch
                 {
                     ItemOrdem.Nome => query.OrderBy(x => x.Nome).ThenBy(x => x.Id),
-                    ItemOrdem.Preco => query.OrderBy(x => x.Preco).ThenBy(x => x.Id),
                     _ => query.OrderBy(x => x.Id),
                 };
             }

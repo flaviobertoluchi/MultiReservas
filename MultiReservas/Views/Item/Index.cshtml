@@ -15,6 +15,11 @@
 
                 <h4>Itens</h4>
 
+                @if (TempData["Sucesso"] is not null)
+                {
+                    <div class="alert alert-success mt-4" role="alert">@TempData["Sucesso"]</div>
+                }
+
                 <div class="row mt-4 justify-content-center">
 
                     <div class="row">
@@ -46,19 +51,18 @@
                                 <option value="" selected disabled>Ordenar por</option>
                                 <option value="0">Id</option>
                                 <option value="1">Nome</option>
-                                <option value="2">Preco</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="row justify-content-center">
-                        <div class="col-md-2 mb-2 mt-lg-4">
+                        <div class="col-md-3 mb-2 mt-lg-4">
                             <div class="form-check form-switch">
                                 <input class="form-check-input desativado" type="checkbox" id="desativado">
                                 <label class="form-check-label" for="desativado">Desativado</label>
                             </div>
                         </div>
-                        <div class="col-md-2 mb-2 mt-lg-4">
+                        <div class="col-md-3 mb-2 mt-lg-4">
                             <div class="form-check form-switch">
                                 <input class="form-check-input desc" type="checkbox" id="desc">
                                 <label class="form-check-label" for="desc">Inverter</label>

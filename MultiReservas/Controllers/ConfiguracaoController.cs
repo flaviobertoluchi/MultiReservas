@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiReservas.Config;
 using MultiReservas.Data.Interfaces;
 using MultiReservas.Extensions;
 using MultiReservas.Models;
@@ -56,6 +57,8 @@ namespace MultiReservas.Controllers
             configuracao.ReservasPorLocal = model.ReservasPorLocal;
 
             await repository.Atualizar(configuracao);
+
+            TempData["Sucesso"] = Mensagens.AtualizarSucesso;
 
             return View(configuracao);
         }

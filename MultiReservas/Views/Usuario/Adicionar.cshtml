@@ -11,123 +11,120 @@
 {
     <div class="container mt-3">
         <div class="row justify-content-center">
+            <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4">
 
-            @if (ViewBag.Mensagem is not null)
-            {
-                <div class="alert alert-danger">
-                    @ViewBag.Mensagem
-                </div>
-            }
-            else
-            {
-                <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4">
+                <h4 class="mb-4">Adicionar Usuário</h4>
 
-                    <h4 class="mb-4">Adicionar Usuário</h4>
+                @if (ViewBag.Mensagem is not null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.Mensagem
+                    </div>
+                }
 
-                    <form method="post">
+                <form method="post">
 
-                        <div class="mb-3">
-                            <label class="form-label" asp-for="Login"></label>
-                            <input class="form-control" asp-for="Login">
-                            <span asp-validation-for="Login" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" asp-for="Senha"></label>
-                            <input class="form-control" type="password" asp-for="Senha">
-                            <span asp-validation-for="Senha" class="text-danger"></span>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Login"></label>
+                        <input class="form-control" asp-for="Login">
+                        <span asp-validation-for="Login" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Senha"></label>
+                        <input class="form-control" type="password" asp-for="Senha">
+                        <span asp-validation-for="Senha" class="text-danger"></span>
+                    </div>
 
-                        <div class="form-check form-switch mb-3">
-                            <input class="form-check-input" asp-for="Ativo" checked>
-                            <label class="form-check-label" asp-for="Ativo"></label>
-                        </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" asp-for="Ativo" checked>
+                        <label class="form-check-label" asp-for="Ativo"></label>
+                    </div>
 
-                        <h4 class="mb-3">Permissões</h4>
+                    <h4 class="mb-3">Permissões</h4>
 
-                        <h5 class="mb-3">Administração</h5>
+                    <h5 class="mb-3">Administração</h5>
 
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="PaginaInicial" checked>
-                                <label class="form-check-label" asp-for="PaginaInicial"></label>
-                            </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="Reservas" checked>
+                            <label class="form-check-label" asp-for="Reservas"></label>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="Reservas" checked>
-                                <label class="form-check-label" asp-for="Reservas"></label>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="Itens" checked>
+                            <label class="form-check-label" asp-for="Itens"></label>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="Itens" checked>
-                                <label class="form-check-label" asp-for="Itens"></label>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="Usuarios" checked>
+                            <label class="form-check-label" asp-for="Usuarios"></label>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="Usuarios" checked>
-                                <label class="form-check-label" asp-for="Usuarios"></label>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="Configuracao" checked>
+                            <label class="form-check-label" asp-for="Configuracao"></label>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="Configuracao" checked>
-                                <label class="form-check-label" asp-for="Configuracao"></label>
-                            </div>
-                        </div>
+                    </div>
 
-                        <h5 class="mb-3">Operação</h5>
+                    <h5 class="mb-3">Operação</h5>
 
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="AdicionarReservas" checked>
-                                <label class="form-check-label" asp-for="AdicionarReservas"></label>
-                            </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="PaginaInicial" checked>
+                            <label class="form-check-label" asp-for="PaginaInicial"></label>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="EditarReservas" checked>
-                                <label class="form-check-label" asp-for="EditarReservas"></label>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="AdicionarReservas" checked>
+                            <label class="form-check-label" asp-for="AdicionarReservas"></label>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="FinalizarReservas" checked>
-                                <label class="form-check-label" asp-for="FinalizarReservas"></label>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="EditarReservas" checked>
+                            <label class="form-check-label" asp-for="EditarReservas"></label>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="CancelarReservas" checked>
-                                <label class="form-check-label" asp-for="CancelarReservas"></label>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="FinalizarReservas" checked>
+                            <label class="form-check-label" asp-for="FinalizarReservas"></label>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="AdicionarItensReserva" checked>
-                                <label class="form-check-label" asp-for="AdicionarItensReserva"></label>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="CancelarReservas" checked>
+                            <label class="form-check-label" asp-for="CancelarReservas"></label>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input permissao" type="checkbox" asp-for="RemoverItensReserva" checked>
-                                <label class="form-check-label" asp-for="RemoverItensReserva"></label>
-                            </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="AdicionarItensReserva" checked>
+                            <label class="form-check-label" asp-for="AdicionarItensReserva"></label>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input permissao" type="checkbox" asp-for="RemoverItensReserva" checked>
+                            <label class="form-check-label" asp-for="RemoverItensReserva"></label>
+                        </div>
+                    </div>
 
-                        <button class="btn btn-primary mb-2" asp-area="" asp-controller="Usuario" asp-action="Adicionar" checked>
-                            <i class="fa-solid fa-square-plus"></i> Adicionar
-                        </button>
+                    <button class="btn btn-primary mb-2" asp-area="" asp-controller="Usuario" asp-action="Adicionar" checked>
+                        <i class="fa-solid fa-square-plus"></i> Adicionar
+                    </button>
 
-                        <a class="btn btn-secondary mb-2" asp-area="" asp-controller="Usuario" asp-action="Index" checked>
-                            <i class="fa-solid fa-circle-left"></i> Voltar
-                        </a>
+                    <a class="btn btn-secondary mb-2" asp-area="" asp-controller="Usuario" asp-action="Index" checked>
+                        <i class="fa-solid fa-circle-left"></i> Voltar
+                    </a>
 
-                    </form>
-                </div>
-            }
+                </form>
 
+            </div>
         </div>
     </div>
 

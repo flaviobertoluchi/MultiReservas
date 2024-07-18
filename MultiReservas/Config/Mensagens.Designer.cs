@@ -61,6 +61,24 @@ namespace MultiReservas.Config {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adicionado com sucesso..
+        /// </summary>
+        public static string AdicionarSucesso {
+            get {
+                return ResourceManager.GetString("AdicionarSucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atualizado com sucesso..
+        /// </summary>
+        public static string AtualizarSucesso {
+            get {
+                return ResourceManager.GetString("AtualizarSucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Local inválido..
         /// </summary>
         public static string LocalInvalido {
