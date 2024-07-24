@@ -2,22 +2,22 @@
 
 Um sistema construído em .NET 8 para reserva de locais, alguns exemplos de uso são: restaurantes, hotéis, cinemas e estacionamentos. Pode ser utilizado também como um sistema de pedidos simples.
 
-![Página Inicial](img/pagina_inicial.png)
+<img src="img/pagina_inicial.png" alt="Página Inicial">
 
 A quantidade de locais e o limite de reservas por local podem ser alterados nas configurações do sistema. Permitindo multiplas reservas, útil para restaurantes com mais de uma comanda ou reservas futuras. 
 
-![MultiReservas](img/multireservas.png)
+<img src="img/multireservas.png" width="350" alt="MultiReservas">
 
 O sistema também é responsivo ao tamanho da tela e ao tema (claro/escuro) do dispositivo.
 
-![Dispositivo Móvel Tema Claro](img/movel_claro.png)
+<img src="img/movel_claro.png" width="350" alt="Dispositivo Móvel Tema Claro">
 
 ## Como executar
 
 #### Windows
 
 - Baixe e descompacte: [Windows x64](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/Windows.x64.zip)
-- Abra o arquivo `MultiReservas.exe`.
+- Abra o arquivo `MultiReservas.exe`
 
 #### Linux
 
@@ -26,12 +26,12 @@ O sistema também é responsivo ao tamanho da tela e ao tema (claro/escuro) do dis
   ```
   chmod +x MultiReservas && chmod +x MultiReservas.sh
   ```
-- Abra o arquivo `MultiReservas.sh`.
+- Abra o arquivo `MultiReservas.sh`
 
 #### .NET
 
 - Baixe e instale: [.NET 8.0](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0)
-- Baixe e descompacte: [dotNET8](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/dotNET8.zip)
+- Baixe e descompacte: [dotNET 8](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/dotNET8.zip)
 - No terminal execute o comando:
   ```
   dotnet MultiReservas.dll
