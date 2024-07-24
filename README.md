@@ -4,25 +4,42 @@ Um sistema construído em .NET 8 para reserva de locais, alguns exemplos de uso s
 
 ![Página Inicial](img/pagina_inicial.png)
 
-A quantidade de locais pode ser alterada nas configurações do sistema, assim como o limite de reservas por local, permitindo multiplas reservas, útil para restaurantes com mais de uma comanda ou reservas futuras. 
+A quantidade de locais e o limite de reservas por local podem ser alterados nas configurações do sistema. Permitindo multiplas reservas, útil para restaurantes com mais de uma comanda ou reservas futuras. 
 
 ![MultiReservas](img/multireservas.png)
 
-O sistema também é responsivo ao tamanho da tela e tema claro/escuro do dispositivo.
+O sistema também é responsivo ao tamanho da tela e ao tema (claro/escuro) do dispositivo.
 
 ![Dispositivo Móvel Tema Claro](img/movel_claro.png)
 
 ## Como executar
 
-### Pré-requisito
+#### Windows
 
-- [.NET 8.0](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0)
- 
-### Instruções
+- Baixe e descompacte: [Windows x64](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/Windows.x64.zip)
+- Abra o arquivo `MultiReservas.exe`.
 
-- Baixe o sistema e descompacte: [MultiReservas.zip](https://github.com/flaviobertoluchi/MultiReservas/blob/master/MultiReservas.zip)
-- Execute o sistema abrindo o arquivo MultiReservas.exe ou MultiReservas.dll dependendo do sistema operacional.
-- Abra o link gerado no navegador, utilize o usuário **admin** com senha **admin**.
+#### Linux
+
+- Baixe e descompacte: [Linux amd64](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/Linux.amd64.zip)
+- Permita a execução dos arquivos `MultiReservas` e `MultiReservas.sh`.
+  ```
+  chmod +x MultiReservas && chmod +x MultiReservas.sh
+  ```
+- Abra o arquivo `MultiReservas.sh`.
+
+#### .NET
+
+- Baixe e instale: [.NET 8.0](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0)
+- Baixe e descompacte: [dotNET8](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/dotNET8.zip)
+- No terminal execute o comando:
+  ```
+  dotnet MultiReservas.dll
+  ```
+
+### Acesso ao sistema
+
+- Acesse no navegador http://localhost:5000, utilize o usuário **admin** com senha **admin**.
 
 #### Banco de dados (Opcional)
 
@@ -34,5 +51,5 @@ O sistema também é responsivo ao tamanho da tela e tema claro/escuro do disposit
   - [PostgreSQL](https://www.postgresql.org/download/)
   - [MySQL](https://dev.mysql.com/downloads/)
 
-- Escolha um provedor de banco de dados e crie o banco, execute o script de criação das tabelas correspondente encontrado em [Scripts](https://github.com/flaviobertoluchi/MultiReservas/tree/master/MultiReservas/Scripts)
-- Defina o banco na tag "Banco" do arquivo [appsettings.json](https://github.com/flaviobertoluchi/MultiReservas/blob/master/MultiReservas/appsettings.json), o arquivo contém exemplos de ConnectionStrings para cada banco, configure a do banco escolhido.
+- Crie o banco e execute o script de criação das tabelas encontrado em [Scripts](https://github.com/flaviobertoluchi/MultiReservas/tree/master/MultiReservas/Scripts).
+- Defina o banco na tag "Banco" do arquivo [appsettings.json](https://github.com/flaviobertoluchi/MultiReservas/blob/master/MultiReservas/appsettings.json), o arquivo contém exemplos de ConnectionStrings para cada banco.
