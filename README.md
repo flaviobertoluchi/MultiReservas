@@ -16,12 +16,12 @@ O sistema também é responsivo ao tamanho da tela e ao tema (claro/escuro) do dis
 
 #### Windows
 
-- Baixe e descompacte: [Windows x64](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/Windows.x64.zip)
+- Baixe e descompacte: [MultiReservas - Windows](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/MultiReservas.Windows.x64.zip)
 - Abra o arquivo `MultiReservas.exe`
 
 #### Linux
 
-- Baixe e descompacte: [Linux amd64](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/Linux.amd64.zip)
+- Baixe e descompacte: [MultiReservas - Linux](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/MultiReservas.Linux.amd64.zip)
 - Permita a execução dos arquivos `MultiReservas` e `MultiReservas.sh`.
   ```
   chmod +x MultiReservas && chmod +x MultiReservas.sh
@@ -31,7 +31,7 @@ O sistema também é responsivo ao tamanho da tela e ao tema (claro/escuro) do dis
 #### .NET
 
 - Baixe e instale: [.NET 8.0](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0)
-- Baixe e descompacte: [dotNET 8](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/dotNET8.zip)
+- Baixe e descompacte: [MultiReservas](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/MultiReservas.dotNET8.zip)
 - No terminal execute o comando:
   ```
   dotnet MultiReservas.dll
