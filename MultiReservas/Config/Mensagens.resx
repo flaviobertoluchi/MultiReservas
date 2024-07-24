@@ -123,6 +123,9 @@
   <data name="AtualizarSucesso" xml:space="preserve">
     <value>Atualizado com sucesso.</value>
   </data>
+  <data name="ConfirmarSenha" xml:space="preserve">
+    <value>As senhas não conferem.</value>
+  </data>
   <data name="LocalInvalido" xml:space="preserve">
     <value>Local inválido.</value>
   </data>

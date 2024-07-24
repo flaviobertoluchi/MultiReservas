@@ -4,6 +4,7 @@ using MultiReservas.Data.Interfaces;
 using MultiReservas.Extensions;
 using MultiReservas.Models;
 using MultiReservas.Models.Tipos;
+using MultiReservas.Models.ViewModels;
 using System.Text.Json;
 
 namespace MultiReservas.Controllers
@@ -40,9 +41,15 @@ namespace MultiReservas.Controllers
 
         [UsuarioAutorizacao]
         [HttpPost("adicionar")]
-        public async Task<IActionResult> Adicionar(Usuario model)
+        public async Task<IActionResult> Adicionar(UsuarioViewModel model)
         {
             if (!ModelState.IsValid || !usuario.Usuarios) return View(model);
+
+            if (string.IsNullOrEmpty(model.Senha))
+            {
+                ViewBag.Mensagem = "Informe uma senha.";
+                return View(model);
+            }
 
             model.Login = model.Login.Trim().ToLower();
 
@@ -53,9 +60,25 @@ namespace MultiReservas.Controllers
                 return View(model);
             }
 
-            model.Senha = CriptografiaSHA256.Criptografar(model.Senha);
+            var usuarioAdicionar = new Usuario
+            {
+                Login = model.Login,
+                Senha = CriptografiaSHA256.Criptografar(model.Senha),
+                Ativo = model.Ativo,
+                Reservas = model.Reservas,
+                Itens = model.Itens,
+                Usuarios = model.Usuarios,
+                Configuracao = model.Configuracao,
+                PaginaInicial = model.PaginaInicial,
+                AdicionarReservas = model.AdicionarReservas,
+                EditarReservas = model.EditarReservas,
+                FinalizarReservas = model.FinalizarReservas,
+                CancelarReservas = model.CancelarReservas,
+                AdicionarItensReserva = model.AdicionarItensReserva,
+                RemoverItensReserva = model.RemoverItensReserva,
+            };
 
-            await repository.Adicionar(model);
+            await repository.Adicionar(usuarioAdicionar);
 
             TempData["Sucesso"] = Mensagens.AdicionarSucesso;
 
@@ -67,12 +90,36 @@ namespace MultiReservas.Controllers
         public async Task<IActionResult> Detalhes(int id)
         {
             if (!usuario.Usuarios) return View();
-            return View(await repository.Obter(id));
+
+            var usuarioBanco = await repository.Obter(id);
+            if (usuarioBanco is not null)
+            {
+                var model = new UsuarioViewModel
+                {
+                    Login = usuarioBanco.Login,
+                    Ativo = usuarioBanco.Ativo,
+                    Reservas = usuarioBanco.Reservas,
+                    Itens = usuarioBanco.Itens,
+                    Usuarios = usuarioBanco.Usuarios,
+                    Configuracao = usuarioBanco.Configuracao,
+                    PaginaInicial = usuarioBanco.PaginaInicial,
+                    AdicionarReservas = usuarioBanco.AdicionarReservas,
+                    EditarReservas = usuarioBanco.EditarReservas,
+                    FinalizarReservas = usuarioBanco.FinalizarReservas,
+                    CancelarReservas = usuarioBanco.CancelarReservas,
+                    AdicionarItensReserva = usuarioBanco.AdicionarItensReserva,
+                    RemoverItensReserva = usuarioBanco.RemoverItensReserva,
+                };
+
+                return View(model);
+            }
+
+            return View();
         }
 
         [UsuarioAutorizacao]
         [HttpPost("detalhes/{id}")]
-        public async Task<IActionResult> Detalhes(int id, Usuario model)
+        public async Task<IActionResult> Detalhes(int id, UsuarioViewModel model)
         {
             if (!ModelState.IsValid || id != model.Id || !usuario.Usuarios) return View(model);
 
@@ -89,7 +136,7 @@ namespace MultiReservas.Controllers
             if (usuarioBanco is null) return View(model);
 
             usuarioBanco.Login = model.Login;
-            usuarioBanco.Senha = CriptografiaSHA256.Criptografar(model.Senha);
+            if (!string.IsNullOrEmpty(model.Senha)) usuarioBanco.Senha = CriptografiaSHA256.Criptografar(model.Senha);
             usuarioBanco.Ativo = model.Ativo;
             usuarioBanco.PaginaInicial = model.PaginaInicial;
             usuarioBanco.Reservas = model.Reservas;

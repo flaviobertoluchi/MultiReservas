@@ -79,6 +79,15 @@ namespace MultiReservas.Config {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to As senhas não conferem..
+        /// </summary>
+        public static string ConfirmarSenha {
+            get {
+                return ResourceManager.GetString("ConfirmarSenha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Local inválido..
         /// </summary>
         public static string LocalInvalido {

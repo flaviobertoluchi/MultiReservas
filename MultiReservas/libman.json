@@ -78,14 +78,6 @@
         "jquery.mask.js",
         "jquery.mask.min.js"
       ]
-    },
-    {
-      "library": "js-cookie@3.0.5",
-      "destination": "wwwroot/lib/js-cookie/",
-      "files": [
-        "js.cookie.js",
-        "js.cookie.min.js"
-      ]
     }
   ]
 }
