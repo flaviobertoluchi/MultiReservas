@@ -24,7 +24,7 @@ O sistema também é responsivo ao tamanho da tela e ao tema (claro/escuro) do dis
 - Baixe e descompacte: [MultiReservas - Linux](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/MultiReservas.Linux.amd64.zip)
 - Permita a execução dos arquivos `MultiReservas` e `MultiReservas.sh`.
   ```
-  chmod +x MultiReservas && chmod +x MultiReservas.sh
+  chmod +x MultiReservas MultiReservas.sh
   ```
 - Abra o arquivo `MultiReservas.sh`
 
@@ -41,7 +41,7 @@ O sistema também é responsivo ao tamanho da tela e ao tema (claro/escuro) do dis
 
 - Acesse no navegador http://localhost:5000, utilize o usuário **admin** com senha **admin**.
 
-#### Banco de dados (Opcional)
+### Banco de dados (Opcional)
 
 - O sistema pode ser executado em um dos seguintes bancos:
 
