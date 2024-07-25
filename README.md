@@ -28,7 +28,7 @@ O sistema também é responsivo ao tamanho da tela e ao tema (claro/escuro) do dis
   ```
 - Abra o arquivo `MultiReservas.sh`
 
-#### .NET
+#### .NET (Linux, macOS e Windows)
 
 - Baixe e instale: [.NET 8.0](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0)
 - Baixe e descompacte: [MultiReservas](https://github.com/flaviobertoluchi/MultiReservas/releases/latest/download/MultiReservas.dotNET8.zip)
